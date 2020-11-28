@@ -4,6 +4,7 @@ using Service.Integration.DataServices;
 using Service.Integration.Models;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Service.Integration.Services
 {
@@ -30,13 +31,13 @@ namespace Service.Integration.Services
         /// Returns List of customers available in DB
         /// </summary>
         /// <returns>Returns List of customers</returns>
-        public List<Customer> GetDeliveryDetails()
+        public async Task<List<Customer>> GetDeliveryDetails()
         {
-            //_context.Database.EnsureCreated();
+            _context.Database.EnsureCreated();
             _logger.LogInformation("Requested for customer details.");
             var results = _context.Customers.Include(x => x.Address).ToList();
 
-            return results;
+            return await Task.FromResult(results).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -44,13 +45,13 @@ namespace Service.Integration.Services
         /// </summary>
         /// <param name="customer"> Customer object as input to Ef for insertion</param>
         /// <returns>Returns List of Updated customers</returns>
-        public List<Customer> AddDeliveryDetails(Customer customer)
+        public async Task<List<Customer>> AddDeliveryDetails(Customer customer)
         {
             _context.Attach(customer);
             _context.SaveChanges();
 
             _logger.LogInformation("Delivery details have been successfully Added.");
-            return _context.Customers.Include(x => x.Address).ToList();
+            return await Task.FromResult(_context.Customers.Include(x => x.Address).ToList()).ConfigureAwait(false);
             
         }
 
@@ -59,10 +60,10 @@ namespace Service.Integration.Services
         /// </summary>
         /// <param name="customer">Customer object</param>
         /// <returns>Returns List of Updated customers</returns>
-        public List<Customer> DeleteDeliveryDetails(Customer customer)
+        public async Task<List<Customer>> DeleteDeliveryDetails(Customer customer)
         {
             var customers = _context.Customers.Include(x => x.Address).ToList();
-            var customerToDelete = customers.FirstOrDefault(x => (x.CustomerName == customer.CustomerName &&
+            var customerToDelete = customers.FirstOrDefault(x => (x.CustomerFirstName == customer.CustomerFirstName && x.CustomerLastName==customer.CustomerLastName &&
                                                                   (x.Address.Address1 == customer.Address.Address1 &&
                                                                    x.Address.City == customer.Address.City
                                                                    && x.Address.PostalCode ==
@@ -75,7 +76,7 @@ namespace Service.Integration.Services
             }
 
             _logger.LogInformation("Delivery details have been successfully deleted.");
-            return _context.Customers.Include(x => x.Address).ToList();
+            return await Task.FromResult(_context.Customers.Include(x => x.Address).ToList()).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -83,11 +84,13 @@ namespace Service.Integration.Services
         /// </summary>
         /// <param name="customer">Customer object</param>
         /// <returns>Returns List of Updated customers</returns>
-        public List<Customer> UpdateDeliveryDetails(Customer customer)
+        public async Task<List<Customer>> UpdateDeliveryDetails(Customer customer)
         {
             var customers = _context.Customers.Include(x => x.Address).ToList();
 
-            var identifiedCustomerWithName = customers.FirstOrDefault(x => (x.CustomerName == customer.CustomerName));
+            var identifiedCustomerWithName = customers.FirstOrDefault(x => (x.CustomerFirstName == customer.CustomerFirstName &&
+                                                                            x.CustomerLastName == customer.CustomerLastName &&
+                                                                            x.CustomerMailId == customer.CustomerMailId));
 
             var identifiedCustomerWithAddress = customers.FirstOrDefault(x =>
                 (x.Address.Address1 == customer.Address.Address1 &&
@@ -113,7 +116,9 @@ namespace Service.Integration.Services
             }
             else if (identifiedCustomerWithAddress != null)
             {
-                identifiedCustomerWithAddress.CustomerName = customer.CustomerName;
+                identifiedCustomerWithAddress.CustomerFirstName = customer.CustomerFirstName;
+                identifiedCustomerWithAddress.CustomerLastName = customer.CustomerLastName;
+                identifiedCustomerWithAddress.CustomerMailId = customer.CustomerMailId;
                 _context.SaveChanges();
 
                 _logger.LogInformation("Delivery Customer details have been successfully updated");
@@ -123,7 +128,7 @@ namespace Service.Integration.Services
             {
                 _logger.LogInformation("No data is available with information provided, so cant update data.");
             }
-            return _context.Customers.Include(x => x.Address).ToList();
+            return await Task.FromResult(_context.Customers.Include(x => x.Address).ToList()).ConfigureAwait(false);
 
         }
     }

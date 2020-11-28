@@ -11,6 +11,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{6E6D63AD-F
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeliveryServices.Tests", "DeliveryServices.Tests\DeliveryServices.Tests.csproj", "{9761B841-18F4-4E5D-BB5F-6FD6433D1E7F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TacoLocoIntegrationTest", "TacoLocoIntegrationTest\TacoLocoIntegrationTest.csproj", "{FB9D5824-1CDF-4266-9EFB-1B7273F673A9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,12 +31,17 @@ Global
 		{9761B841-18F4-4E5D-BB5F-6FD6433D1E7F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9761B841-18F4-4E5D-BB5F-6FD6433D1E7F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9761B841-18F4-4E5D-BB5F-6FD6433D1E7F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FB9D5824-1CDF-4266-9EFB-1B7273F673A9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FB9D5824-1CDF-4266-9EFB-1B7273F673A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FB9D5824-1CDF-4266-9EFB-1B7273F673A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FB9D5824-1CDF-4266-9EFB-1B7273F673A9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{9761B841-18F4-4E5D-BB5F-6FD6433D1E7F} = {6E6D63AD-F2D4-4D92-99FF-DDE1BE9C2D0D}
+		{FB9D5824-1CDF-4266-9EFB-1B7273F673A9} = {6E6D63AD-F2D4-4D92-99FF-DDE1BE9C2D0D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {853C39BB-D816-40BD-8A32-53D1585F2225}

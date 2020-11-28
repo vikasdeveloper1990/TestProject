@@ -1,6 +1,5 @@
 using AutoMapper;
 using FluentValidation.AspNetCore;
-using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -29,7 +28,6 @@ namespace TacoLoco
         {
             services.AddAutoMapper(typeof(CustomerProfile));
             services.AddControllers();
-            services.AddMediatR(typeof(Startup));
             services.AddMvc(options => { options.Filters.Add<ValidationFilter>(); }
                ).AddFluentValidation(
                 fv => fv.RegisterValidatorsFromAssemblyContaining<Customer>());

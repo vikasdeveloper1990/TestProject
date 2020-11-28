@@ -26,26 +26,44 @@ namespace DeliveryServices.Tests
         }
 
         [Fact]
-        public void Can_Get_DeliveryDetails()
+        public async void Can_Get_DeliveryDetails()
         {
-          var result =   _service.GetDeliveryDetails();
+          var result =  await _service.GetDeliveryDetails().ConfigureAwait(false);
 
-          Assert.Equal(result.Count,0);
+            Assert.Empty(result);
         }
 
         [Fact]
-        public void Can_Insert_DeliveryDetails()
+        public async void Can_Insert_DeliveryDetails()
         {
-            var result = _service.AddDeliveryDetails(CustomerDetails());
+            var result = await _service.AddDeliveryDetails(CustomerDetails()).ConfigureAwait(false);
 
-            Assert.Equal(result.Count, 1);
+            Assert.Single(result);
+        }
+
+        [Fact]
+        public async void Can_Update_DeliveryDetails()
+        {
+            var result = await _service.UpdateDeliveryDetails(CustomerDetails()).ConfigureAwait(false);
+
+            Assert.Empty(result);
+        }
+
+        [Fact]
+        public async void Can_Delete_DeliveryDetails()
+        {
+            var result =await  _service.DeleteDeliveryDetails(CustomerDetails()).ConfigureAwait(false);
+
+            Assert.Empty(result);
         }
 
         private Customer CustomerDetails()
         {
             var customer = new Customer()
             {
-                CustomerName = "Detroit Labs",
+                CustomerFirstName = "Detroit",
+                CustomerLastName = "Labs",
+                CustomerMailId = "Labs@test.com",
                 Address = new Address()
                 {
                     Address1 = "15180 Old hickory",

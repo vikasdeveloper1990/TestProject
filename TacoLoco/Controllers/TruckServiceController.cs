@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Service.Integration.Models;
 using Service.Integration.Services;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace TacoLoco.Controllers
 {
@@ -31,9 +32,9 @@ namespace TacoLoco.Controllers
         /// </summary>
         /// <returns>List of Delivery/Customer Details</returns>
         [HttpGet]
-        public List<CustomerDto> GetAllDeliveryDetails()
+        public async Task<List<CustomerDto>> GetAllDeliveryDetails()
         {
-            var results = _service.GetDeliveryDetails();
+            var results =await _service.GetDeliveryDetails().ConfigureAwait(false);
             return _mapper.Map<List<CustomerDto>>(results);
 
         }
@@ -46,9 +47,9 @@ namespace TacoLoco.Controllers
         /// <returns>List of Updated Delivery/Customer Details</returns>
         [HttpPost]
         [Route("AddDeliveryDetails")]
-        public List<CustomerDto> AddDeliveryDetails([FromBody] Customer customer)
+        public async Task<List<CustomerDto>> AddDeliveryDetails([FromBody] Customer customer)
         {
-            var results = _service.AddDeliveryDetails(customer);
+            var results = await _service.AddDeliveryDetails(customer).ConfigureAwait(false);
             return _mapper.Map<List<CustomerDto>>(results);
         }
 
@@ -60,9 +61,9 @@ namespace TacoLoco.Controllers
         /// <returns>List of Updated Delivery/Customer Details after Deletion</returns>
         [HttpPost]
         [Route("DeleteDeliveryDetails")]
-        public List<CustomerDto> DeleteDeliveryDetails([FromBody] Customer customer)
+        public async Task<List<CustomerDto>> DeleteDeliveryDetails([FromBody] Customer customer)
         {
-            var results=  _service.DeleteDeliveryDetails(customer);
+            var results= await  _service.DeleteDeliveryDetails(customer).ConfigureAwait(false);
             return _mapper.Map<List<CustomerDto>>(results);
         }
 
@@ -74,9 +75,9 @@ namespace TacoLoco.Controllers
         /// <returns>List of Updated Delivery/Customer Details after Deletion</returns>
         [HttpPost]
         [Route("UpdateDeliveryDetails")]
-        public List<CustomerDto> UpdateDeliveryDetails([FromBody] Customer customer)
+        public async Task<List<CustomerDto>> UpdateDeliveryDetails([FromBody] Customer customer)
         {
-            var results = _service.UpdateDeliveryDetails(customer);
+            var results = await _service.UpdateDeliveryDetails(customer).ConfigureAwait(false);
             return _mapper.Map<List<CustomerDto>>(results);
         }
 

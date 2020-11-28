@@ -1,13 +1,14 @@
 ﻿using Service.Integration.Models;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Service.Integration.Services
 {
     public interface IService
     {
-        List<Customer> GetDeliveryDetails();
-        List<Customer> AddDeliveryDetails(Customer customer);
-        List<Customer> DeleteDeliveryDetails(Customer customer);
-        List<Customer> UpdateDeliveryDetails(Customer customer);
+        Task<List<Customer>> GetDeliveryDetails();
+        Task<List<Customer>> AddDeliveryDetails(Customer customer);
+        Task<List<Customer>> DeleteDeliveryDetails(Customer customer);
+        Task<List<Customer>> UpdateDeliveryDetails(Customer customer);
     }
 }
