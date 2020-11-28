@@ -6,10 +6,12 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Service.Integration.DataServices;
 using Service.Integration.Models;
 using Service.Integration.Profiles;
 using Service.Integration.Services;
+using TacoLoco.Extensions;
 using TacoLoco.Filters;
 
 namespace TacoLoco
@@ -48,7 +50,7 @@ namespace TacoLoco
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            app.ConfigureExceptionHandler();
             app.UseHttpsRedirection();
 
             app.UseRouting();

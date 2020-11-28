@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Service.Integration.DataServices;
 using Service.Integration.Models;
@@ -73,9 +74,15 @@ namespace Service.Integration.Services
                 _context.Addresses.Remove(customerToDelete.Address);
                 _context.Customers.Remove(customerToDelete);
                 _context.SaveChanges();
+                _logger.LogInformation("Delivery details have been successfully deleted.");
             }
+            else
+            {
+                _logger.LogInformation("No data is available with information provided, so cant Delete data.");
 
-            _logger.LogInformation("Delivery details have been successfully deleted.");
+                throw new Exception("No records to be Deleted with provided details.");
+            }
+            
             return await Task.FromResult(_context.Customers.Include(x => x.Address).ToList()).ConfigureAwait(false);
         }
 
@@ -127,6 +134,8 @@ namespace Service.Integration.Services
             else
             {
                 _logger.LogInformation("No data is available with information provided, so cant update data.");
+
+                throw new Exception("No records to be Updated with provided details.");
             }
             return await Task.FromResult(_context.Customers.Include(x => x.Address).ToList()).ConfigureAwait(false);
 
